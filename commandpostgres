@@ -1,0 +1,26 @@
+#INSTALLATION
+
+sudo apt-get update
+sudo apt-get install postgresql postgresql-contrib
+
+#Create  database   and  user  
+sudo -u postgres psql
+postgres=# CREATE DATABASE videos;
+postgres=# CREATE USER video_user WITH PASSWORD 'password';
+postgres=# GRANT ALL PRIVILEGES ON DATABASE videos TO video_user;
+postgres=# \q
+
+
+#connect   to databse   and create  table  to store videos
+
+psql -U video_user -d videos
+videos=> CREATE TABLE videos (video_id serial PRIMARY KEY, video_name TEXT, video_path TEXT);
+videos=> \q
+
+
+#insert  data into database
+
+psql -U video_user -d videos
+videos=> INSERT INTO videos (video_name, video_path) VALUES ('video1', '/path/to/video1.mp4');
+videos=> INSERT INTO videos (video_name, video_path) VALUES ('video2', '/path/to/video2.mp4');
+videos=> \q
